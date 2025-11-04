@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 
 public class HotelManager
-{    public List<Room> Rooms { get; set; }
+{
+    public List<Room> Rooms { get; set; }
     public List<Receptionist> Receptionists { get; set; }
 
 
@@ -91,7 +92,31 @@ public class HotelManager
                 return;
             }
         }
-        Console.Writeline("Room " + roomNumber + " does not exist"); 
+        Console.Writeline("Room " + roomNumber + " does not exist");
     }
-    
+
+    public void MarkRoomUnavailable(int roomNumber)
+    {
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            if (Rooms[i].RoomNumber == roomNumber)
+            {
+                if (Rooms[i].Status == RoomStatus.Available)
+                {
+                    Rooms[i].Status = RoomStatus.Unavailable;
+                    Console.WriteLine("Room " + roomNumber + " is now marked as unavailable.");
+                }
+                else if (Rooms[i].Status == RoomStatus.Occupied)
+                {
+                    Console.WriteLine("Room " + roomNumber + " is occupied and cannot be marked as unavailable.");
+                }
+                else
+                {
+                    Console.WriteLine("Room " + roomNumber + " is already unavailable.");
+                }
+                return;
+            }
+        }
+        Console.WriteLine("Room " + roomNumber + " does not exist."); 
+    }
 }
